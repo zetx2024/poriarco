@@ -2,8 +2,8 @@
 "use strict";
 
 const ROOT=document.getElementById("app");
-const SESSION_KEY="iarco_portal_session_v5";
-const ROUTE_KEY="iarco_portal_route_v5";
+const SESSION_KEY="iarco_portal_session_zv5";
+const ROUTE_KEY="iarco_portal_route_zv5";
 const state={user:null,users:[],modules:[],timeline:[],config:null,loaded:false};
 
 function esc(v){
