@@ -1,0 +1,51 @@
+[
+  {
+    "id": "assessment",
+    "title": "Research Assessment Deadline",
+    "date": "2026-09-25T23:59:00-05:00",
+    "description": "The Research Assessment is a quiz covering core Research 101 topics. To help you prepare, we will be hosting a dedicated bootcamp. Every participant who completes the assessment will receive a Certificate of Participation displaying their exact score.",
+    "submitLabel": "Conduct Research Assessment",
+    "submitUrl": "https://arena.iarco.org",
+    "rulesLabel": "Rules",
+    "rulesUrl": "https://iarco.org/assessment-arena",
+    "rules": [
+  "The assessment window is open from September 20\u201325, 2026.",
+  "You will take the test in a secure, proctored environment featuring randomized questions with multiple variations.",
+  "All forms of unauthorized assistance are strictly prohibited; opening or switching tabs, as well as using keyboard shortcuts, is disabled within the assessment platform.",
+  "Upon completing the assessment, you will automatically receive a Certificate of Participation.",
+  "Screen recording is active throughout the session, and all decisions regarding policy violations are final."
+]
+  },
+  {
+    "id": "proposal",
+    "title": "Proposal Submission Deadline",
+    "date": "2026-09-30T23:59:00-05:00",
+    "description": "The Research Proposal is the main research submission. It must be a maximum of 2 pages excluding cover page, title, citations, and references. Information on how to write a proposal and what to include will be provided in the bootcamps and further communication.",
+    "submitLabel": "Submit Proposal",
+    "submitUrl": "https://forms.gle/8GuoVQJQj8dLQt8RA",
+    "rulesLabel": "Rubric",
+    "rulesUrl": "https://iarco.org/assets/doc/proposal_rubric.pdf",
+    "rules": [
+      "Maximum 2 pages excluding cover page, title, citations and references.",
+      "Follow the official proposal formatting guidelines.",
+      "Review all requirements before submission.",
+      "Submit before the displayed deadline."
+    ]
+  },
+  {
+    "id": "pitch",
+    "title": "Video Pitch Submission Deadline",
+    "date": "2026-10-15T23:59:00-05:00",
+    "description": "The top 100 Finalists must submit a 2.5-5 minute-long video submission. The Video Pitch should state the proposal's research question or objective and introduce the research process and potential future research avenues.",
+    "submitLabel": "Submit Video Pitch",
+    "submitUrl": "https://forms.gle/EqbBcHqNdLXTSjn46",
+    "rulesLabel": "Rubric",
+    "rulesUrl": "https://iarco.org/assets/doc/video_rubric.pdf",
+    "rules": [
+      "Video duration must be 2.5\u20135 minutes.",
+      "Include your research question or objective.",
+      "Follow the official technical specifications.",
+      "Review the assessment guidelines before submission."
+    ]
+  }
+]

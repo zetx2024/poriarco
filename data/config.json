@@ -1,0 +1,32 @@
+{
+  "year": "2026",
+  "brand": "IARCO 2026",
+  "sponsors": [
+    {
+      "name": "SaveMyExams",
+      "url": "https://www.savemyexams.com/",
+      "logo": "https://cdn.savemyexams.com/logo/sme-logo-3line.svg"
+    },
+    {
+      "name": "Domain.Me",
+      "url": "https://domain.me/",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/5/52/Domainme.png"
+    }
+  ],
+  "notice": "fofo !",
+  "faqUrl": "https://example.com/faq",
+  "supportEmail": "iarco2026@yrjmail.com",
+  "watermarkLogo": "assets/logo-watermark.svg",
+  "sponsorLogos": [
+    {
+      "name": "SaveMyExams",
+      "url": "https://www.savemyexams.com/",
+      "logo": "https://cdn.savemyexams.com/logo/sme-logo-3line.svg"
+    },
+    {
+      "name": "Domain.Me",
+      "url": "https://domain.me/",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/5/52/Domainme.png"
+    }
+  ]
+}

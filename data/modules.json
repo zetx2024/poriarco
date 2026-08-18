@@ -1,0 +1,231 @@
+[
+  {
+    "id": 1,
+    "language": "en",
+    "languageName": "English",
+    "title": "Your First Step Into Academic Research",
+    "description": "This foundational lesson introduces you to the world of academic research, covering the basic concepts and expectations for competition participants.",
+    "topics": [
+      "Understanding academic research standards",
+      "Selecting a research topic",
+      "Developing research questions",
+      "Ethical considerations in research",
+      "Introduction to literature review"
+    ],
+    "videoId": "R-j4XSJUjGE",
+    "lectures": [
+      {
+        "id": 1,
+        "title": "Your First Step Into Academic Research",
+        "videoId": "R-j4XSJUjGE",
+        "resource": ""
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "language": "en",
+    "languageName": "English",
+    "title": "Research Methodology",
+    "description": "Learn about different research methodologies and how to select the most appropriate approach for your project.",
+    "topics": [
+      "Quantitative vs. qualitative research",
+      "Experimental design",
+      "Data collection methods",
+      "Sampling techniques",
+      "Ensuring validity and reliability"
+    ],
+    "videoId": "R-j4XSJUjGE",
+    "lectures": [
+      {
+        "id": 2,
+        "title": "Research Methodology",
+        "videoId": "R-j4XSJUjGE",
+        "resource": ""
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "language": "en",
+    "languageName": "English",
+    "title": "Research Proposal",
+    "description": "Master the art of writing a compelling research proposal that clearly communicates your project's value and methodology.",
+    "topics": [
+      "Structure of a research proposal",
+      "Writing clear objectives",
+      "Literature review techniques",
+      "Methodology section",
+      "Expected outcomes and impact"
+    ],
+    "videoId": "R-j4XSJUjGE",
+    "lectures": [
+      {
+        "id": 3,
+        "title": "Research Proposal",
+        "videoId": "R-j4XSJUjGE",
+        "resource": ""
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "language": "en",
+    "languageName": "English",
+    "title": "Practice Research Proposal",
+    "description": "Apply what you've learned by analyzing real research proposal examples and getting practical tips for your own submission.",
+    "topics": [
+      "Analyzing successful proposals",
+      "Common mistakes to avoid",
+      "Formatting and submission guidelines",
+      "Peer review process",
+      "Final checklist before submission"
+    ],
+    "videoId": "R-j4XSJUjGE",
+    "lectures": [
+      {
+        "id": 4,
+        "title": "Practice Research Proposal",
+        "videoId": "R-j4XSJUjGE",
+        "resource": "https://iarco.org/assets/doc/proposal_template.docx"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "language": "en",
+    "languageName": "English",
+    "title": "Practice Video Pitch",
+    "description": "Apply what you've learned by analyzing real research proposal presentation examples and getting practical tips for your own submission.",
+    "topics": [
+      "Successful presentations look like",
+      "Common mistakes to avoid",
+      "Formatting and submission guidelines",
+      "Final checklist before submission"
+    ],
+    "videoId": "jPxsMXBjq8I",
+    "lectures": [
+      {
+        "id": 5,
+        "title": "Practice Video Pitch",
+        "videoId": "jPxsMXBjq8I",
+        "resource": "https://iarco.org/assets/doc/IARCO_Pitch_Presentation.pdf"
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "language": "bn",
+    "languageName": "বাংলা",
+    "title": "একাডেমিক গবেষণায় আপনার প্রথম পদক্ষেপ",
+    "description": "এই ভিত্তিমূলক পাঠে একাডেমিক গবেষণার মৌলিক ধারণা ও প্রতিযোগিতায় অংশগ্রহণকারীদের প্রত্যাশা সম্পর্কে শেখানো হবে।",
+    "topics": [
+      "একাডেমিক গবেষণার মানদণ্ড বোঝা",
+      "গবেষণার বিষয় নির্বাচন",
+      "গবেষণা প্রশ্ন তৈরি",
+      "গবেষণায় নৈতিকতা",
+      "সাহিত্য পর্যালোচনার পরিচিতি"
+    ],
+    "videoId": "R-j4XSJUjGE",
+    "lectures": [
+      {
+        "id": 1,
+        "title": "একাডেমিক গবেষণায় আপনার প্রথম পদক্ষেপ",
+        "videoId": "R-j4XSJUjGE",
+        "resource": ""
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "language": "bn",
+    "languageName": "বাংলা",
+    "title": "গবেষণা পদ্ধতি",
+    "description": "বিভিন্ন গবেষণা পদ্ধতি এবং আপনার প্রকল্পের জন্য উপযুক্ত পদ্ধতি নির্বাচন সম্পর্কে জানুন।",
+    "topics": [
+      "পরিমাণগত বনাম গুণগত গবেষণা",
+      "পরীক্ষামূলক নকশা",
+      "তথ্য সংগ্রহ পদ্ধতি",
+      "নমুনা নির্বাচন কৌশল",
+      "বৈধতা ও নির্ভরযোগ্যতা নিশ্চিত করা"
+    ],
+    "videoId": "R-j4XSJUjGE",
+    "lectures": [
+      {
+        "id": 2,
+        "title": "গবেষণা পদ্ধতি",
+        "videoId": "R-j4XSJUjGE",
+        "resource": ""
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "language": "bn",
+    "languageName": "বাংলা",
+    "title": "গবেষণা প্রস্তাবনা",
+    "description": "আপনার গবেষণার মূল্য ও পদ্ধতিকে স্পষ্টভাবে উপস্থাপন করে একটি শক্তিশালী গবেষণা প্রস্তাবনা লেখার কৌশল শিখুন।",
+    "topics": [
+      "গবেষণা প্রস্তাবনার কাঠামো",
+      "স্পষ্ট উদ্দেশ্য লেখা",
+      "সাহিত্য পর্যালোচনা কৌশল",
+      "পদ্ধতি অংশ",
+      "প্রত্যাশিত ফলাফল ও প্রভাব"
+    ],
+    "videoId": "R-j4XSJUjGE",
+    "lectures": [
+      {
+        "id": 3,
+        "title": "গবেষণা প্রস্তাবনা",
+        "videoId": "R-j4XSJUjGE",
+        "resource": ""
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "language": "bn",
+    "languageName": "বাংলা",
+    "title": "গবেষণা প্রস্তাবনার অনুশীলন",
+    "description": "বাস্তব গবেষণা প্রস্তাবনার উদাহরণ বিশ্লেষণ করে আপনার নিজের প্রস্তাবনার জন্য ব্যবহারিক নির্দেশনা নিন।",
+    "topics": [
+      "সফল প্রস্তাবনা বিশ্লেষণ",
+      "সাধারণ ভুল এড়ানো",
+      "ফরম্যাটিং ও জমাদান নির্দেশনা",
+      "পিয়ার রিভিউ প্রক্রিয়া",
+      "জমাদানের আগে চূড়ান্ত চেকলিস্ট"
+    ],
+    "videoId": "R-j4XSJUjGE",
+    "lectures": [
+      {
+        "id": 4,
+        "title": "গবেষণা প্রস্তাবনার অনুশীলন",
+        "videoId": "R-j4XSJUjGE",
+        "resource": "https://iarco.org/assets/doc/proposal_template.docx"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "language": "bn",
+    "languageName": "বাংলা",
+    "title": "Practice Video Pitch",
+    "description": "Apply what you've learned by analyzing real research proposal presentation examples and getting practical tips for your own submission.",
+    "topics": [
+      "Successful presentations look like",
+      "Common mistakes to avoid",
+      "Formatting and submission guidelines",
+      "Final checklist before submission"
+    ],
+    "videoId": "jPxsMXBjq8I",
+    "lectures": [
+      {
+        "id": 5,
+        "title": "Practice Video Pitch",
+        "videoId": "jPxsMXBjq8I",
+        "resource": "https://iarco.org/assets/doc/IARCO_Pitch_Presentation.pdf"
+      }
+    ]
+  },
+  
+]
