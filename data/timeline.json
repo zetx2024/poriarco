@@ -9,6 +9,7 @@
     "rulesLabel": "Rules",
     "rulesUrl": "https://iarco.org/assessment-arena",
     "rules": [
+      "First, check your category to ensure you are in the correct group. The Junior category is for students in grades 7 through 12, as well as those on a gap year who have graduated from high school or A-levels but are not currently enrolled in any institution. The Senior category is for anyone from their first day of a bachelor's program onward, including adults of any age and independent learners, even if you are not currently in school. If your current registration does not match your situation, please contact us to update it right away, because once you take the Research Assessment, your category can no longer be changed.",
   "The assessment window is open from September 20\u201325, 2026.",
   "You will take the test in a secure, proctored environment featuring randomized questions with multiple variations.",
   "All forms of unauthorized assistance are strictly prohibited; opening or switching tabs, as well as using keyboard shortcuts, is disabled within the assessment platform.",
@@ -26,7 +27,7 @@
     "rulesLabel": "Rubric",
     "rulesUrl": "https://iarco.org/assets/doc/proposal_rubric.pdf",
     "rules": [
-      "Maximum 2 pages excluding cover page, title, citations and references.",
+      "Maximum 2-5 pages excluding cover page, title, citations and references.",
       "Follow the official proposal formatting guidelines.",
       "Review all requirements before submission.",
       "Submit before the displayed deadline."
@@ -36,11 +37,11 @@
     "id": "pitch",
     "title": "Video Pitch Submission Deadline",
     "date": "2026-10-15T23:59:00-05:00",
-    "description": "The top 100 Finalists must submit a 2.5-5 minute-long video submission. The Video Pitch should state the proposal's research question or objective and introduce the research process and potential future research avenues.",
+    "description": "The top 50+50 Finalists must submit a 2.5-5 minute-long video submission. The Video Pitch should state the proposal's research question or objective and introduce the research process and potential future research avenues.",
     "submitLabel": "Submit Video Pitch",
-    "submitUrl": "https://forms.gle/EqbBcHqNdLXTSjn46",
+    "submitUrl": "#",
     "rulesLabel": "Rubric",
-    "rulesUrl": "https://iarco.org/assets/doc/video_rubric.pdf",
+    "rulesUrl": "#",
     "rules": [
       "Video duration must be 2.5\u20135 minutes.",
       "Include your research question or objective.",
