@@ -233,7 +233,7 @@ function watermarkPath(){
 function renderLogin(message=""){
   ROOT.innerHTML=`<div class="login-wrap"><div class="login-card">
     <div class="brand">${esc(cfg().brand||`IARCO ${cfg().year||""}`)}</div>
-    <p class="muted">Academic Research Bootcamp Portal</p>
+    <p class="muted">IARCO Bootcamp Portal</p>
     <form id="loginForm">
       <div class="field"><label for="loginEmail">Email</label><input id="loginEmail" type="email" autocomplete="username" required></div>
       <div class="field password-field"><label for="loginPassword">Password</label><div class="password-input-wrap"><input id="loginPassword" type="password" autocomplete="current-password" required><button type="button" class="password-toggle" id="togglePassword" aria-label="Show password" aria-pressed="false" title="Show password">👁</button></div></div>
@@ -278,6 +278,8 @@ function renderLogin(message=""){
         email:user.email,
         name:user.name,
         institution:user.institution,
+        category:user.category,
+        country:user.country,
         languages:Array.isArray(user.languages)?user.languages:[user.language].filter(Boolean)
       };
       localStorage.setItem(SESSION_KEY,JSON.stringify(state.user));
@@ -308,7 +310,7 @@ function updateCountdowns(){
 
 function timelineSidebarHTML(){return state.timeline.length?state.timeline.map((x,i)=>`<div class="timeline-item"><h4>${esc(x.title)}</h4><div class="deadline-label">Deadline: ${esc(formatDeadline(x.date))}</div><div class="countdown" data-deadline="${esc(x.date)}">${countdownText(x.date)}</div><div class="timeline-actions compact"><button class="side-action side-submit" type="button" data-timeline="${i}">${esc(x.submitLabel||"Submit")}</button><a class="side-action" target="_blank" rel="noopener noreferrer" href="${esc(x.rulesUrl||'#')}">${esc(x.rulesLabel||"Rules")}</a></div></div>`).join(''):'<div class="muted small">No timeline items.</div>';}
 function timelineMainHTML(){
-  return state.timeline.length?`<section class="timeline-main"><h2>Assignment Timeline</h2>
+  return state.timeline.length?`<section class="timeline-main"><h2>Competition Timeline</h2>
     <p class="muted">Countdown uses fixed EST (UTC−05:00).</p>
     <div class="deadline-grid">${state.timeline.map(x=>`<article class="deadline-row">
       <h3>${esc(x.title)}</h3>
@@ -325,9 +327,9 @@ function shell(content){
   ROOT.innerHTML=`${noticeHTML()}${sponsorHeaderHTML()}<div class="shell"><aside class="sidebar">
     <div class="brand">${esc(cfg().brand||`IARCO ${cfg().year||""}`)}</div>
     <div style="color:#d0d5dd">${esc(state.user.name)}</div>
-    <div class="side-title">Assignment Timeline</div>
+    <div class="side-title">Competition Timeline</div>
     <div class="timeline">${timelineSidebarHTML()}</div>
-    <div class="support-box"><b>Need help?</b><p class="small">If you have any question first visit our <a class="side-link" href="${esc(cfg().faqUrl||"#")}" target="_blank" rel="noopener noreferrer">FAQ</a> section then email <a class="side-link" href="mailto:${esc(cfg().supportEmail)}">${esc(cfg().supportEmail)}</a>.</p></div><div class="sidebar-logout"><button class="btn danger logout-small" id="logoutBtn" type="button">Logout</button></div>
+    <div class="support-box"><b>Need help?</b><p class="small">If you have any question first visit our <a class="side-link" href="${esc(cfg().faqUrl||"https://iarco.org/faq")}" target="_blank" rel="noopener noreferrer">FAQ</a> section then email <a class="side-link" href="mailto:${esc(cfg().supportEmail)}">${esc(cfg().supportEmail)}</a>.</p></div><div class="sidebar-logout"><button class="btn danger logout-small" id="logoutBtn" type="button">Logout</button></div>
   </aside><main class="main">${content}</main></div>`;
   document.getElementById("logoutBtn").onclick=logout; bindChrome(); document.querySelectorAll(".side-submit,.main-submit").forEach(b=>b.onclick=()=>submissionModal(state.timeline[+b.dataset.timeline]));
   updateCountdowns();
@@ -343,7 +345,7 @@ function showQuickIntroIfNeeded(){
     <div class="intro-progress"><span id="introStepLabel">1 / 3</span></div>
     <div class="intro-step active" data-step="1"><div class="intro-icon">👋</div><h2>Welcome to IARCO 2026</h2><p class="muted">This quick guide explains your bootcamp portal.</p></div>
     <div class="intro-step" data-step="2"><div class="intro-icon">📚</div><h2>Use Next to continue</h2><p class="muted">Click Next on your dashboard to open your assigned modules and languages.</p></div>
-    <div class="intro-step" data-step="3"><div class="intro-icon">⏱️</div><h2>Watch your timeline</h2><p class="muted">The sidebar and dashboard contain live assignment countdowns, Submit links and Rules.</p></div>
+    <div class="intro-step" data-step="3"><div class="intro-icon">⏱️</div><h2>Watch your timeline</h2><p class="muted">The sidebar and dashboard contain live submission countdowns, Submit links and Rules.</p></div>
     <div class="intro-actions"><button class="btn secondary" id="introSkip">Skip</button><button class="btn" id="introNext">Next</button></div>
   </div>`;
   document.body.appendChild(overlay);
@@ -362,8 +364,11 @@ function renderDashboard(){
   shell(`<div class="topbar"><div><div class="muted">Participant dashboard</div><h2>Welcome, ${esc(state.user.name)}!</h2></div></div>
   <section class="hero"><h1>Welcome to the IARCO 2026 Academic Research Bootcamp</h1>
     <p class="sponsor-line">IARCO 2026 Sponsored by <a href="https://www.savemyexams.com/" target="_blank" rel="noopener noreferrer">SaveMyExams</a> &amp; <a href="https://domain.me/" target="_blank" rel="noopener noreferrer">Domain.Me</a></p>
-    <p class="muted">This portal contains your bootcamp curriculum, research lessons, assignments, and submission information.</p>
-    <p><b>Institution:</b> ${esc(state.user.institution)}<br><b>Available languages:</b> ${state.user.languages.map(x=>esc(x.toUpperCase())).join(", ")}</p>
+    <p class="muted">This portal contains your bootcamp curriculum, research lessons, and submission links.</p>
+    <p class="muted">This is your all about the IARCO, Basically this is you dashboard where you have to first click the Next Button to watch our Intro Section then one by one you have to watch Bootcamp session for learning Research and how to write a research proposal properly as we have different language options In English V1 & BN V1 is prepared by <a href="https://www.azmainsrizon.com/" target="_blank" rel="noopener noreferrer">Md Azmain Yaking Srizon</a> an assistant professor at Rajshahi University of Engineering and Technology is a renable Researcher, Reviewers in Reputed journal like springer, IEEE, Elsvier, Mentored 200+ Masters Thesis Students, 600+ YRJ Students, and also the host of international Conferences have more than 150+ Publications, Our English V2 is preapred by <a href="https://www.linkedin.com/in/dr-karthikeyan-parthasarathy-33473038/" target="_blank" rel="noopener noreferrer">Dr. Karthikeyan Parthasarathy</a> is the Professor and Head of Kongu Business School with over 24 years of distinguished experience in Research mentore 100+ PhD,  management education, extensive 130+ research publications, and global academic engagements. IARCO is organized by YRJ's President <a href="http://iarco.org/sanaul-haque" target="_blank" rel="noopener noreferrer">Sanaul Haque</a>, IARCO 2026 is hosted by Zaima Haque, who's engry brings IARCO 2026 in another level.</p>
+    <p class="muted">After completing the Research Bootcamp lectures, which are optional if you already know the material or just want to skim for IARCO information, you can take the Research Assessment to earn your Participation Certificate. The secure assessment portal opens on September 20 for five days and features a single attempt multiple choice test on basic research fundamentals that you can complete at any time within that deadline. You will receive your participation certificate regardless of your score and you can download it directly from the portal or receive it via email. Please note that the assessment environment is strictly monitored so switching windows, copy pasting or using keyboard shortcuts will automatically disqualify your certificate. Even if that happens you can still submit your research proposal since it is the main focus of the competition. Make sure to review the <a href="https://iarco.org/judging" target="_blank" rel="noopener noreferrer">Research Judging Rubrics</a> and <a href="https://iarco.org/assets/doc/proposal_rubric.pdf" target="_blank" rel="noopener noreferrer">Research Proposal Rubrics</a> for the evaluation criteria before submitting your proposal through the designated link. After the results are announced, the top 50 participants in each category will be notified and asked to submit their research pitch accordingly.</p>
+    <p class="muted">Details regarding prizes and coupon distributions will be shared with participants after the final results are announced.</p>
+    <p><b>Institution:</b> ${esc(state.user.institution)}<br><b>Category:</b> ${esc(state.user.category)}<br><b>Country:</b> ${esc(state.user.country)}<br><b>Available languages:</b> ${state.user.languages.map(x=>esc(x.toUpperCase())).join(", ")}</p>
     <button class="btn" id="nextBtn">Next →</button>
   </section>
   <section class="info-card" style="margin-top:18px"><h2>Bootcamp Curriculum</h2><p class="muted">Your assigned curriculum appears in every language assigned to your account.</p></section>
