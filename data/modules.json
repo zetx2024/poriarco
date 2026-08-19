@@ -23,9 +23,9 @@
     ]
   },
   {
-    "id": 1,
+    "id": 2,
     "language": "intro",
-    "languageName": "English",
+    "languageName": "Intro",
     "title": "Practice Video Pitch",
     "description": "Apply what you've learned by analyzing real research proposal presentation examples and getting practical tips for your own submission.",
     "topics": [
@@ -37,7 +37,7 @@
     "videoId": "jPxsMXBjq8I",
     "lectures": [
       {
-        "id": 5,
+        "id": 2,
         "title": "Practice Video Pitch",
         "videoId": "jPxsMXBjq8I",
         "resource": "https://iarco.org/assets/doc/IARCO_Pitch_Presentation.pdf"
