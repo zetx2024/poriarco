@@ -81,5 +81,25 @@
         ],
         "email_hash": "3a1ab1163a4e90849e6e6472da47aea94c0b64da83d1bd0657fae36abfb7908495747416c546b17e2f5aa502d3935ad52c6a9e7b211117ca2b6afff3413d1be2",
         "password_hash": "b32cbc97ffbb5320c6a2af9bceff7cb4e40b3758ae2fc45a073be803ce595555e50ba933954c28888168f025e33913c7fccbb49d9997d9d1e9f04eacb8b1393d"
+    },
+    {
+        "name": "Al Hasib Sifat",
+        "institution": "Lomonosov Moscow State University",
+        "school": "Lomonosov Moscow State University",
+        "country": "Russia",
+        "category": "Senior",
+        "participant_id": "2026-S-01",
+        "program": "IARCO 2026",
+        "batch": "3rd",
+        "image": "https://iarco.org/fevicon/android-chrome-192x192.png",
+        "role": "Senior",
+        "date": "2026-08-18",
+        "years": "2026",
+        "languages": [
+            "en",
+            "bn"
+        ],
+        "email_hash": "e19349cbe25f1464734c64b40de48de69b14bd6d03de1481bd13725e26440f177aa176fdcffd98a473732df7d8a148ceb7af9da45ee18bbcb037c4912ff5a3e1",
+        "password_hash": "f81b22914cf37d0386e59bedcb316c49bfd268eb79f322e115d0e6a7d02940bb66788d5ab05d8e8320a65a4a654e4654a85f3d19f313a159b958e7b0fbd98de9"
     }
 ]
