@@ -1,21 +1,22 @@
 [
     {
         "name": "Md Sanaul Haque Shanto",
-        "institution": "RGLHS",
-        "school": "RGLHS",
+        "institution": "Vallurupalli Nageswara Rao Vignana Jyothi Institute of Engineering and Technology",
+        "school": "Vallurupalli Nageswara Rao Vignana Jyothi Institute of Engineering and Technology",
         "country": "Bangladesh",
-        "category": "Junior",
-        "participant_id": "2025-J-01",
-        "program": "IARCO 2025",
-        "batch": "2nd",
+        "category": "Senior",
+        "participant_id": "2026-S-01",
+        "program": "IARCO 2026",
+        "batch": "3rd",
         "image": "https://iarco.org/fevicon/android-chrome-192x192.png",
-        "role": "Junior",
-        "date": "2025-08-18",
-        "years": "2025",
+        "role": "Senior",
+        "date": "2026-08-18",
+        "years": "2026",
         "languages": [
+            "intro"
             "en",
             "bn",
-            "hi"
+            "eng"
         ],
         "email_hash": "2f9a8f5655039daf101524f3fc9fda37e883cc0cfe6be0bc77470046f871e0254b5a91e194c2ed7a0474bc255a224af216b4ccf355ae41fa8a15bf1842467035",
         "password_hash": "f81b22914cf37d0386e59bedcb316c49bfd268eb79f322e115d0e6a7d02940bb66788d5ab05d8e8320a65a4a654e4654a85f3d19f313a159b958e7b0fbd98de9"
