@@ -35,7 +35,7 @@ async function hashCredential(value){
 
 async function prefetchPortalData(){
   if(state.loaded) return;
-  const [users,timeline,modules,config]=await Promise.all([loadJSON("https://arena.iarco.org/users.json"),loadJSON("data/timeline.json"),loadJSON("data/modules.json"),loadJSON("data/config.json")]);
+  const [users,timeline,modules,config]=await Promise.all([loadJSON("users.json"),loadJSON("data/timeline.json"),loadJSON("data/modules.json"),loadJSON("data/config.json")]);
   state.users=users;
   state.timeline=timeline;
   state.modules=modules;
