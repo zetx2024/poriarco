@@ -5,8 +5,8 @@
     "date": "2026-09-15T23:59:00-05:00",
     "description": "The Research Assessment is a quiz covering core Research 101 topics. To help you prepare, we will be hosting a dedicated bootcamp. Every participant who completes the assessment will receive a Certificate of Participation displaying their exact score.",
     "submitLabel": "Conduct Research Assessment",
-    "submitUrl": "#",
-    "rulesLabel": "Rules",
+    "submitUrl": "https://exam.iarco.org",
+    "rulesLabel": "",
     "rulesUrl": "#",
     "rules": [
       "First, check your category to ensure you are in the correct group. The Junior category is for students in grades 7 through 12, as well as those on a gap year who have graduated from high school or A-levels but are not currently enrolled in any institution. The Senior category is for anyone from their first day of a bachelor's program onward, including adults of any age and independent learners, even if you are not currently in school. If your current registration does not match your situation, please contact us to update it right away, because once you take the Research Assessment, your category can no longer be changed.",
