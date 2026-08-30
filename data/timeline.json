@@ -5,7 +5,7 @@
     "date": "2026-09-15T23:59:00-05:00",
     "description": "The Research Assessment is a quiz covering core Research 101 topics. To help you prepare, we will be hosting a dedicated bootcamp. Every participant who completes the assessment will receive a Certificate of Participation displaying their exact score.",
     "submitLabel": "Conduct Research Assessment",
-    "submitUrl": "https://exam.iarco.org",
+    "submitUrl": "#",
     "rulesLabel": "",
     "rulesUrl": "#",
     "rules": [
