@@ -12,35 +12,13 @@
       "Selecting Proccess",
       "Participation and Achievement Certification"
     ],
-    "videoId": "qW-S8RHVTkU",
+    "videoId": "fCdMSxetk4w",
     "lectures": [
       {
         "id": 1,
         "title": "IARCO 2026",
-        "videoId": "qW-S8RHVTkU",
-        "resource": "https://iarco.org/assets/doc/IARCO_2026_introduction_Presentation_Zaima.pdf"
-      }
-    ]
-  },
-  {
-    "id": 2,
-    "language": "intro",
-    "languageName": "Intro",
-    "title": "Resource",
-    "description": "Apply what you've learned by analyzing real research proposal presentation examples and getting practical tips for your own submission.",
-    "topics": [
-      "Successful presentations look like",
-      "Common mistakes to avoid",
-      "Formatting and submission guidelines",
-      "Final checklist before submission"
-    ],
-    "videoId": "jPxsMXBjq8I",
-    "lectures": [
-      {
-        "id": 2,
-        "title": "Practice Video Pitch",
-        "videoId": "jPxsMXBjq8I",
-        "resource": "https://iarco.org/assets/doc/IARCO_2026_introduction_Presentation_Zaima.pdf"
+        "videoId": "fCdMSxetk4w",
+        "resource": ""
       }
     ]
   },
