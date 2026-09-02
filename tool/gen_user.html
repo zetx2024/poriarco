@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IARCO User & Password Generator</title>
+<style>
+:root{--blue:#123b75;--gold:#c9a34a;--ink:#172033;--muted:#64748b;--bg:#f5f8fc}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:var(--ink)}
+.wrap{max-width:1180px;margin:32px auto;padding:0 18px}
+.head{background:linear-gradient(135deg,#0e2f60,#194f92);color:#fff;border-radius:18px;padding:26px 28px;box-shadow:0 12px 30px #123b7525}
+.head h1{margin:0 0 6px}.head p{margin:0;color:#dce9f8}
+.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:18px}
+.card{background:#fff;border-radius:16px;padding:22px;box-shadow:0 8px 24px #0b234012}
+.card h2{margin:0 0 8px;color:var(--blue)}.muted{color:var(--muted);font-size:14px}
+.notice{padding:12px 14px;border-radius:10px;background:#eef7ff;margin:18px 0}
+.error{background:#fff0f0;color:#a51d2d}.success{background:#eefaf1;color:#176b37}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field label{display:block;font-size:12px;font-weight:700;color:#516176;margin-bottom:5px}
+.field input,.field textarea,.field select{width:100%;padding:10px 11px;border:1px solid #d7deea;border-radius:9px;font:inherit;background:#fff}
+.field textarea{min-height:100px;resize:vertical}.full{grid-column:1/-1}
+.btn{border:0;border-radius:9px;padding:11px 15px;font-weight:800;cursor:pointer;background:var(--blue);color:#fff;text-decoration:none;display:inline-block}
+.btn.gold{background:var(--gold);color:#172033}.btn.secondary{background:#e9eef6;color:var(--blue)}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
+.code{background:#101827;color:#e5edf8;border-radius:10px;padding:14px;overflow:auto;max-height:300px;font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}
+.cred{margin-top:14px;padding:13px;border:1px solid #dbe4f0;border-radius:10px;background:#fafcff}
+.pass{font-weight:900;font-size:18px;letter-spacing:2px;color:#8a6415;word-break:break-all}
+.drop{border:2px dashed #bdc9da;border-radius:12px;padding:22px;text-align:center;background:#fbfdff}
+.small{font-size:12px;color:var(--muted)}
+.file-preview{margin:12px 0 0;padding:12px;text-align:left;border:1px solid #dbe4f0;border-radius:10px;background:#fff;overflow:auto}
+.file-preview.empty{color:var(--muted);text-align:center;background:#f8fbff}
+.file-name{font-weight:800;color:var(--blue);word-break:break-word}.file-meta{font-size:12px;color:var(--muted);margin-top:3px}
+.file-preview table{width:100%;border-collapse:collapse;margin-top:9px;font-size:12px}
+.file-preview th,.file-preview td{padding:6px 7px;border-bottom:1px solid #e6ebf2;text-align:left;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.latest-head{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.latest-meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.latest-meta span{font-size:11px;background:#eef4fb;color:#3c536f;border-radius:999px;padding:5px 8px}
+.icon-btn{border:1px solid #d7deea;background:#fff;color:var(--blue);border-radius:9px;padding:8px 11px;font-weight:800;cursor:pointer}
+.modal{position:fixed;inset:0;background:rgba(10,24,45,.58);display:none;align-items:center;justify-content:center;padding:18px;z-index:9999}
+.modal.open{display:flex}.modal-card{width:min(980px,100%);max-height:90vh;background:#fff;border-radius:18px;box-shadow:0 20px 70px rgba(0,0,0,.25);display:flex;flex-direction:column;overflow:hidden}
+.modal-head{padding:16px 18px;border-bottom:1px solid #e5eaf1;display:flex;justify-content:space-between;align-items:center}
+.modal-head h3{margin:0;color:var(--blue)}.modal-close{border:0;background:#eef2f7;width:34px;height:34px;border-radius:50%;font-size:20px;cursor:pointer}
+.modal-body{padding:16px;overflow:auto}.modal-body pre{margin:0;background:#101827;color:#e5edf8;border-radius:12px;padding:16px;max-height:60vh;overflow:auto;font:12px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap;word-break:break-word}
+.modal-foot{padding:14px 16px;border-top:1px solid #e5eaf1;display:flex;gap:9px;justify-content:flex-end;flex-wrap:wrap}
+.status{display:none;margin-top:12px;padding:10px 12px;border-radius:9px;font-size:13px}
+.status.show{display:block}.status.error{background:#fff0f0;color:#a51d2d}.status.success{background:#eefaf1;color:#176b37}
+button:disabled{opacity:.65;cursor:not-allowed}
+@media(max-width:850px){.grid{grid-template-columns:1fr}.fields{grid-template-columns:1fr}.wrap{margin:16px auto;padding:0 10px}.head{padding:20px}.card{padding:16px}.modal{padding:10px}.modal-card{max-height:94vh}.latest-head{align-items:flex-start}.latest-meta{gap:5px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <h1>IARCO User & Password Generator</h1>
+    <p>Generate hashed participant users from Google Forms CSV/XLSX exports. Plain passwords are only shown in the credential export.</p>
+  </div>
+
+  <div id="globalStatus" class="notice" style="display:none"></div>
+
+  <div class="grid">
+    <section class="card">
+      <h2>Bulk Google Forms import</h2>
+      <p class="muted">Export your Google Form responses as CSV or XLSX. The first row must contain headers. All supplied columns are preserved as user fields, and the standard IARCO fields are added when missing.</p>
+
+      <form id="bulkForm">
+        <div class="fields">
+          <div class="field"><label>Password length</label><input id="bulkPasswordLength" type="number" min="4" max="32" value="6" required></div>
+          <div class="field"><label>Program</label><input id="bulkProgram" value="IARCO"></div>
+          <div class="field"><label>Batch</label><input id="bulkBatch" value=""></div>
+          <div class="field"><label>Image</label><input id="bulkImage" value="https://iarco.org/fevicon/android-chrome-192x192.png"></div>
+          <div class="field"><label>Date</label><input id="bulkDate" type="date"></div>
+          <div class="field"><label>Years</label><input id="bulkYears"></div>
+          <div class="field"><label>Languages</label><input id="bulkLanguages" value="en" placeholder="en,bn,hi"></div>
+        </div>
+
+        <div class="drop" style="margin-top:12px">
+          <input id="sheetInput" type="file" accept=".csv,.txt,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required>
+          <div id="filePreview" class="file-preview empty">Select a CSV or XLSX file to preview it here.</div>
+          <div class="small">CSV and XLSX input are supported. Each valid email gets a unique random password. The credential downloads contain CSV and modern Excel .xlsx files. Category is read from the uploaded CSV/XLSX Category column (Junior/Senior). Languages are comma-separated and stored as a JSON array. Participant IDs are generated as YEAR-J/S-01, YEAR-J/S-001, etc.; numbering width is based on total participant count with a minimum of 2 digits.</div>
+        </div>
+
+        <div class="actions">
+          <button id="bulkGenerateBtn" class="btn gold" type="submit">Generate users + credentials</button>
+        </div>
+        <div id="bulkStatus" class="status"></div>
+      </form>
+
+      <div id="bulkResult" class="cred latest" style="display:none">
+        <div class="latest-head">
+          <div><b>Latest bulk generation</b><div id="bulkCount" class="small"></div></div>
+          <button class="icon-btn" type="button" onclick="openJsonModal()">View JSON</button>
+        </div>
+        <div id="bulkMeta" class="latest-meta"></div>
+        <div class="actions">
+          <button class="btn" type="button" onclick="downloadUsersJson()">Download users.json</button>
+          <button class="btn secondary" type="button" onclick="openJsonModal()">Preview & Copy JSON</button>
+          <button class="btn secondary" type="button" onclick="downloadCredentialsCsv()">Download credentials CSV</button>
+          <button class="btn secondary" type="button" onclick="downloadCredentialsXlsx()">Download credentials Excel (.xlsx)</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Generate one student</h2>
+      <p class="muted">Creates one hashed JSON entry. Category, role, date, years and participant ID are generated automatically; the password length is configurable.</p>
+
+      <form id="singleForm">
+        <div class="fields">
+          <div class="field"><label>Email</label><input id="singleEmail" type="email" required></div>
+          <div class="field"><label>Password length</label><input id="singlePasswordLength" type="number" min="4" max="32" value="6" required></div>
+          <div class="field"><label>Name</label><input id="singleName" required></div>
+          <div class="field"><label>Institution</label><input id="singleInstitution"></div>
+          <div class="field"><label>School</label><input id="singleSchool"></div>
+          <div class="field"><label>Country</label><input id="singleCountry" value="Bangladesh"></div>
+          <div class="field"><label>Program</label><input id="singleProgram" value="IARCO"></div>
+          <div class="field"><label>Batch</label><input id="singleBatch"></div>
+          <div class="field"><label>Image</label><input id="singleImage" value="https://iarco.org/fevicon/android-chrome-192x192.png"></div>
+          <div class="field"><label>Category</label><select id="singleCategory"><option value="Junior">Junior</option><option value="Senior">Senior</option></select></div>
+          <div class="field"><label>Role</label><input value="Same as category" readonly></div>
+          <div class="field"><label>Date</label><input id="singleDate" type="date"></div>
+          <div class="field"><label>Years</label><input id="singleYears"></div>
+          <div class="field"><label>Languages</label><input id="singleLanguages" value="en" placeholder="en,bn,hi"></div>
+          <div class="field"><label>Participant ID</label><input value="Auto generated (YEAR-J/S-01)" readonly></div>
+          <div class="field full"><label>Additional fields (JSON, optional)</label><textarea id="extraJson" placeholder='{"mentor":"Dr. Example","section":"A"}'></textarea></div>
+        </div>
+
+        <div class="actions"><button id="singleGenerateBtn" class="btn gold" type="submit">Generate single entry</button></div>
+        <div id="singleStatus" class="status"></div>
+      </form>
+
+      <div id="singleResult" class="cred" style="display:none">
+        <b>Generated login password</b>
+        <div id="singlePassword" class="pass"></div>
+        <div class="actions"><button class="btn secondary" type="button" onclick="copyText('singleJson')">Copy JSON entry</button></div>
+        <pre id="singleJson" class="code"></pre>
+        <div class="small">The JSON contains email_hash and password_hash; real email/password are not included. Languages are stored as a JSON array.</div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div id="jsonModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="jsonModalTitle">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3 id="jsonModalTitle">Generated users.json</h3>
+      <button class="modal-close" type="button" onclick="closeJsonModal()" aria-label="Close">×</button>
+    </div>
+    <div class="modal-body"><pre id="bulkJsonPreview"></pre></div>
+    <div class="modal-foot">
+      <button class="btn secondary" type="button" onclick="copyBulkJson()">Copy JSON</button>
+      <button class="btn" type="button" onclick="downloadUsersJson()">Download users.json</button>
+      <button class="btn secondary" type="button" onclick="closeJsonModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+/* ============================================================
+   IARCO USER GENERATOR
+   Browser-only conversion of the supplied PHP generator.
+
+   PHP compatibility preserved:
+   - PBKDF2 SHA-256
+   - secret: iamgp5
+   - 100,000 iterations
+   - 64-byte / 128-hex-character hashes
+   - unique random passwords
+   - same field names and aliases
+   - same category rules
+   - same participant ID format
+   - users.json contains no real email/password
+   - CSV/XLSX credentials contain real email/password + hashes
+   - no login
+   - no database
+   ============================================================ */
+
+const USER_PASSWORD_SECRET = "iamgp5";
+const USER_PASSWORD_ITERATIONS = 100000;
+const USER_PASSWORD_BYTES = 64;
+const DEFAULT_IMAGE = "https://iarco.org/fevicon/android-chrome-192x192.png";
+const PASSWORD_CHARS = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789";
+
+const defaultFields = {
+  email:"",
+  password_hash:"",
+  name:"",
+  institution:"",
+  school:"",
+  country:"Bangladesh",
+  category:"",
+  participant_id:"",
+  program:"IARCO",
+  batch:"",
+  image:DEFAULT_IMAGE,
+  role:"",
+  date:todayISO(),
+  years:String(new Date().getFullYear()),
+  languages:["en"]
+};
+
+let latestBulk = null;
+
+function todayISO(){
+  const d = new Date();
+  const y=d.getFullYear(), m=String(d.getMonth()+1).padStart(2,"0"), day=String(d.getDate()).padStart(2,"0");
+  return `${y}-${m}-${day}`;
+}
+function $(id){return document.getElementById(id)}
+function clampPasswordLength(v){return Math.max(4,Math.min(32,Number(v)||6))}
+function normKey(s){
+  return String(s??"").trim().toLowerCase().replace(/[^a-z0-9]+/g,"_").replace(/^_+|_+$/g,"");
+}
+const aliases={
+  email_address:"email",email_address_1:"email",e_mail:"email",email_id:"email",
+  full_name:"name",student_name:"name",participant_name:"name",
+  institution_name:"institution",school_name:"school",participant_id_number:"participant_id",
+  country_name:"country",program_name:"program",year:"years"
+};
+function cellString(v){
+  if(v===null||v===undefined)return "";
+  if(typeof v==="object")return JSON.stringify(v);
+  return String(v).trim();
+}
+function parseLanguages(value,fallback=["en"]){
+  let items=Array.isArray(value)?value:String(value??"").trim().split(/[,;]+/);
+  const out=[];
+  for(const item of items){
+    const lang=String(item).trim();
+    if(lang && /^[A-Za-z]{2,8}(-[A-Za-z0-9]{2,8})?$/.test(lang))out.push(lang.toLowerCase());
+  }
+  return [...new Set(out)].length ? [...new Set(out)] : [...fallback];
+}
+function normalizeCategory(value){
+  const v=String(value??"").trim().toLowerCase();
+  if(v==="junior")return "Junior";
+  if(v==="senior")return "Senior";
+  return "";
+}
+function validEmail(email){
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+/* Web Crypto PBKDF2 matches PHP hash_pbkdf2('sha256', ..., 100000, 128, false). */
+async function pbkdf2Hex(value){
+  const enc=new TextEncoder();
+  const key=await crypto.subtle.importKey("raw",enc.encode(value),"PBKDF2",false,["deriveBits"]);
+  const bits=await crypto.subtle.deriveBits(
+    {name:"PBKDF2",salt:enc.encode(USER_PASSWORD_SECRET),iterations:USER_PASSWORD_ITERATIONS,hash:"SHA-256"},
+    key,USER_PASSWORD_BYTES*8
+  );
+  return [...new Uint8Array(bits)].map(b=>b.toString(16).padStart(2,"0")).join("");
+}
+function randomInt(maxExclusive){
+  if(maxExclusive<=0)throw new Error("Invalid random range.");
+  const limit=Math.floor(0x100000000/maxExclusive)*maxExclusive;
+  const a=new Uint32Array(1);
+  do{crypto.getRandomValues(a)}while(a[0]>=limit);
+  return a[0]%maxExclusive;
+}
+function randomPassword(length=6){
+  let out="";
+  for(let i=0;i<length;i++)out+=PASSWORD_CHARS[randomInt(PASSWORD_CHARS.length)];
+  return out;
+}
+function uniquePassword(used,length=6){
+  let p;
+  do{p=randomPassword(length)}while(used.has(p));
+  used.add(p);return p;
+}
+function xmlEscape(s){
+  return String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&apos;");
+}
+function csvEscape(v){
+  return `"${String(v??"").replace(/"/g,'""')}"`;
+}
+
+/* ---------- CSV reader ---------- */
+function parseCSV(text){
+  const rows=[];let row=[],field="",quoted=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(quoted){
+      if(c==='"'){
+        if(text[i+1]==='"'){field+='"';i++}
+        else quoted=false;
+      }else field+=c;
+    }else{
+      if(c==='"' && field==="")quoted=true;
+      else if(c===","){row.push(field);field=""}
+      else if(c==="\r"){
+        if(text[i+1]==="\n")i++;
+        row.push(field);field="";
+        rows.push(row);row=[];
+      }else if(c==="\n"){
+        row.push(field);field="";
+        rows.push(row);row=[];
+      }else field+=c;
+    }
+  }
+  if(field!==""||row.length){row.push(field);rows.push(row)}
+  return rows.filter(r=>r.some(x=>String(x).trim()!==""));
+}
+
+/* ---------- Minimal XLSX ZIP reader ---------- */
+function u16(a,o){return a[o]|(a[o+1]<<8)}
+function u32(a,o){return (a[o]|(a[o+1]<<8)|(a[o+2]<<16)|(a[o+3]<<24))>>>0}
+function findEOCD(a){
+  for(let i=a.length-22;i>=Math.max(0,a.length-65558);i--){
+    if(u32(a,i)===0x06054b50)return i;
+  }
+  return -1;
+}
+async function inflateRaw(bytes){
+  if(typeof DecompressionStream==="undefined"){
+    throw new Error("This browser does not support XLSX compression. Please use a current Chrome, Edge, or Firefox browser.");
+  }
+  const ds=new DecompressionStream("deflate-raw");
+  const stream=new Blob([bytes]).stream().pipeThrough(ds);
+  return new Uint8Array(await new Response(stream).arrayBuffer());
+}
+async function unzipEntries(buffer){
+  const a=new Uint8Array(buffer), eocd=findEOCD(a);
+  if(eocd<0)throw new Error("Invalid XLSX ZIP archive.");
+  const cdSize=u32(a,eocd+12), cdOffset=u32(a,eocd+16);
+  const entries=new Map();let p=cdOffset,end=cdOffset+cdSize;
+  while(p<end){
+    if(u32(a,p)!==0x02014b50)break;
+    const method=u16(a,p+10), compSize=u32(a,p+20), uncompSize=u32(a,p+24);
+    const nameLen=u16(a,p+28), extraLen=u16(a,p+30), commentLen=u16(a,p+32);
+    const localOffset=u32(a,p+42);
+    const name=new TextDecoder().decode(a.slice(p+46,p+46+nameLen));
+    if(u32(a,localOffset)!==0x04034b50)throw new Error("Invalid XLSX local entry.");
+    const ln=u16(a,localOffset+26), le=u16(a,localOffset+28);
+    const dataStart=localOffset+30+ln+le;
+    const comp=a.slice(dataStart,dataStart+compSize);
+    let data;
+    if(method===0)data=comp;
+    else if(method===8)data=await inflateRaw(comp);
+    else throw new Error("Unsupported XLSX compression method: "+method);
+    if(uncompSize && data.length!==uncompSize){
+      /* Some producers can omit/alter this value; XML parsing is the final check. */
+    }
+    entries.set(name,data);
+    p+=46+nameLen+extraLen+commentLen;
+  }
+  return entries;
+}
+function textOf(bytes){return new TextDecoder("utf-8").decode(bytes)}
+function firstSheetPath(entries){
+  const wb=textOf(entries.get("xl/workbook.xml")||new Uint8Array());
+  const rels=textOf(entries.get("xl/_rels/workbook.xml.rels")||new Uint8Array());
+  if(!wb||!rels)return "xl/worksheets/sheet1.xml";
+  const wdoc=new DOMParser().parseFromString(wb,"application/xml");
+  const rdoc=new DOMParser().parseFromString(rels,"application/xml");
+  const sheet=wdoc.getElementsByTagNameNS("http://schemas.openxmlformats.org/spreadsheetml/2006/main","sheet")[0];
+  if(!sheet)return "xl/worksheets/sheet1.xml";
+  const rid=sheet.getAttributeNS("http://schemas.openxmlformats.org/officeDocument/2006/relationships","id")||sheet.getAttribute("r:id");
+  const rs=rdoc.getElementsByTagNameNS("http://schemas.openxmlformats.org/package/2006/relationships","Relationship");
+  for(const rel of rs){
+    if(rel.getAttribute("Id")===rid){
+      let target=rel.getAttribute("Target")||"worksheets/sheet1.xml";
+      if(target.startsWith("/"))return target.slice(1);
+      if(target.startsWith("xl/"))return target;
+      return "xl/"+target.replace(/^\/+/,"");
+    }
+  }
+  return "xl/worksheets/sheet1.xml";
+}
+function columnNumber(ref){
+  const m=String(ref).match(/[A-Z]+/i);if(!m)return 0;
+  let n=0;for(const ch of m[0].toUpperCase())n=n*26+(ch.charCodeAt(0)-64);
+  return n-1;
+}
+function parseXlsxShared(entries){
+  const bytes=entries.get("xl/sharedStrings.xml");if(!bytes)return [];
+  const doc=new DOMParser().parseFromString(textOf(bytes),"application/xml");
+  const out=[];
+  const sis=doc.getElementsByTagNameNS("http://schemas.openxmlformats.org/spreadsheetml/2006/main","si");
+  for(const si of sis){
+    const ts=si.getElementsByTagNameNS("http://schemas.openxmlformats.org/spreadsheetml/2006/main","t");
+    out.push([...ts].map(t=>t.textContent||"").join(""));
+  }
+  return out;
+}
+async function parseXLSX(buffer){
+  const entries=await unzipEntries(buffer);
+  const shared=parseXlsxShared(entries);
+  const path=firstSheetPath(entries);
+  const sheetBytes=entries.get(path);
+  if(!sheetBytes)throw new Error("The XLSX workbook has no readable first sheet.");
+  const doc=new DOMParser().parseFromString(textOf(sheetBytes),"application/xml");
+  const rowEls=doc.getElementsByTagNameNS("http://schemas.openxmlformats.org/spreadsheetml/2006/main","row");
+  const rows=[];
+  for(const rowEl of rowEls){
+    const vals=[];let last=0;
+    const cells=rowEl.getElementsByTagNameNS("http://schemas.openxmlformats.org/spreadsheetml/2006/main","c");
+    for(const c of cells){
+      const ref=c.getAttribute("r")||"A1", col=columnNumber(ref);
+      const type=c.getAttribute("t")||"";
+      let v="";
+      if(type==="inlineStr"){
+        const ts=c.getElementsByTagNameNS("http://schemas.openxmlformats.org/spreadsheetml/2006/main","t");
+        v=[...ts].map(t=>t.textContent||"").join("");
+      }else{
+        const ve=c.getElementsByTagNameNS("http://schemas.openxmlformats.org/spreadsheetml/2006/main","v")[0];
+        v=ve?ve.textContent||"":"";
+        if(type==="s")v=shared[Number(v)]??"";
+        else if(type==="b")v=v==="1"?"TRUE":"FALSE";
+      }
+      vals[col]=v;last=Math.max(last,col);
+    }
+    const out=[];for(let i=0;i<=last;i++)out.push(vals[i]??"");rows.push(out);
+  }
+  return rows;
+}
+async function readSpreadsheet(file){
+  const name=file.name.toLowerCase();
+  if(name.endsWith(".csv")||name.endsWith(".txt"))return parseCSV(await file.text());
+  if(name.endsWith(".xlsx"))return parseXLSX(await file.arrayBuffer());
+  throw new Error("Please upload a Google Forms CSV or XLSX export. Legacy .xls binary files are not supported.");
+}
+
+/* ---------- PHP rows_to_records equivalent ---------- */
+function rowsToRecords(rows){
+  if(!rows.length)return [];
+  const headers=rows[0].map(x=>{
+    const k=normKey(cellString(x));return aliases[k]??k;
+  });
+  const records=[];
+  for(const row of rows.slice(1)){
+    const r={};let nonempty=false;
+    headers.forEach((key,i)=>{
+      if(!key)return;
+      const v=cellString(row[i]??"");
+      if(v!=="")nonempty=true;
+      r[key]=v;
+    });
+    if(nonempty)records.push(r);
+  }
+  return records;
+}
+
+/* ---------- User builder ---------- */
+async function buildUsers(records,passwordLength,program,batch,image,date,years,languages){
+  const users=[],credentials=[],used=new Set();
+  const defaultLanguages=parseLanguages(languages);
+  for(const r of records){
+    const u={...defaultFields};
+    for(const [k,v] of Object.entries(r))u[k]=v;
+    const email=String(u.email??"").trim().toLowerCase();
+    if(!validEmail(email))continue;
+    const category=normalizeCategory(u.category??"");
+    if(!category)continue;
+
+    delete u.email;delete u.password;delete u.email_hash;delete u.password_hash;
+    const emailHash=await pbkdf2Hex(email);
+    const plain=uniquePassword(used,passwordLength);
+    const passwordHash=await pbkdf2Hex(plain);
+
+    u.email_hash=emailHash;
+    u.password_hash=passwordHash;
+    u.category=category;
+    u.role=category;
+    u.program=program;
+    u.batch=batch;
+    u.image=image;
+    u.date=date;
+    u.years=years;
+    const rowLanguages=Object.prototype.hasOwnProperty.call(r,"languages") && String(r.languages).trim()!=="" ? r.languages : defaultLanguages;
+    u.languages=parseLanguages(rowLanguages,defaultLanguages);
+    u.participant_id="";
+    users.push(u);
+    credentials.push({
+      email,email_hash:emailHash,password:plain,password_hash:passwordHash,
+      name:String(u.name??""),participant_id:""
+    });
+  }
+
+  const width=Math.max(2,String(users.length).length);
+  users.forEach((u,i)=>{
+    const cat=normalizeCategory(u.category);
+    u.participant_id=yearFromDate(u.date)+"-"+(cat==="Junior"?"J":"S")+"-"+String(i+1).padStart(width,"0");
+  });
+  credentials.forEach((c,i)=>c.participant_id=users[i].participant_id);
+  return [users,credentials];
+}
+function yearFromDate(date){
+  const m=String(date||"").match(/^(\d{4})/);
+  return m?m[1]:String(new Date().getFullYear());
+}
+
+/* ---------- XLSX writer: creates a valid .xlsx ZIP without external libraries ---------- */
+const CRC_TABLE=(()=>{
+  const t=new Uint32Array(256);
+  for(let n=0;n<256;n++){
+    let c=n;
+    for(let k=0;k<8;k++)c=(c&1)?(0xedb88320^(c>>>1)):(c>>>1);
+    t[n]=c>>>0;
+  }
+  return t;
+})();
+function crc32(data){
+  let c=0xffffffff;
+  for(const b of data)c=CRC_TABLE[(c^b)&255]^(c>>>8);
+  return (c^0xffffffff)>>>0;
+}
+function putU16(a,o,v){a[o]=v&255;a[o+1]=(v>>>8)&255}
+function putU32(a,o,v){a[o]=v&255;a[o+1]=(v>>>8)&255;a[o+2]=(v>>>16)&255;a[o+3]=(v>>>24)&255}
+function concatBytes(parts){
+  const total=parts.reduce((n,p)=>n+p.length,0), out=new Uint8Array(total);let o=0;
+  for(const p of parts){out.set(p,o);o+=p.length}return out;
+}
+function xlsxCol(n){
+  let s="";while(n>0){n--;s=String.fromCharCode(65+n%26)+s;n=Math.floor(n/26)}return s;
+}
+function xlsxXml(rows){
+  let sheet='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetData>';
+  rows.forEach((row,ri)=>{
+    const r=ri+1;sheet+=`<row r="${r}">`;
+    row.forEach((val,ci)=>{
+      const ref=xlsxCol(ci+1)+r;
+      sheet+=`<c r="${ref}" t="inlineStr"><is><t>${xmlEscape(cellString(val))}</t></is></c>`;
+    });
+    sheet+="</row>";
+  });
+  return sheet+"</sheetData></worksheet>";
+}
+async function makeXlsx(rows){
+  const enc=new TextEncoder();
+  const files=[
+    ["[Content_Types].xml",`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/></Types>`],
+    ["_rels/.rels",`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>`],
+    ["xl/_rels/workbook.xml.rels",`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/></Relationships>`],
+    ["xl/workbook.xml",`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="Users" sheetId="1" r:id="rId1"/></sheets></workbook>`],
+    ["xl/worksheets/sheet1.xml",xlsxXml(rows)]
+  ];
+
+  const localParts=[],centralParts=[];let offset=0;
+  for(const [name,text] of files){
+    const nameBytes=enc.encode(name),data=enc.encode(text),crc=crc32(data);
+    const local=new Uint8Array(30+nameBytes.length+data.length);
+    putU32(local,0,0x04034b50);putU16(local,4,20);putU16(local,6,0);putU16(local,8,0);
+    putU16(local,10,0);putU16(local,12,0);putU32(local,14,crc);putU32(local,18,data.length);putU32(local,22,data.length);
+    putU16(local,26,nameBytes.length);putU16(local,28,0);local.set(nameBytes,30);local.set(data,30+nameBytes.length);
+    localParts.push(local);
+
+    const central=new Uint8Array(46+nameBytes.length);
+    putU32(central,0,0x02014b50);putU16(central,4,20);putU16(central,6,20);putU16(central,8,0);putU16(central,10,0);
+    putU16(central,12,0);putU16(central,14,0);putU32(central,16,crc);putU32(central,20,data.length);putU32(central,24,data.length);
+    putU16(central,28,nameBytes.length);putU16(central,30,0);putU16(central,32,0);putU16(central,34,0);putU16(central,36,0);putU32(central,38,0);putU32(central,42,offset);
+    central.set(nameBytes,46);centralParts.push(central);
+    offset+=local.length;
+  }
+  const central=concatBytes(centralParts), locals=concatBytes(localParts);
+  const eocd=new Uint8Array(22);
+  putU32(eocd,0,0x06054b50);putU16(eocd,4,0);putU16(eocd,6,0);putU16(eocd,8,files.length);putU16(eocd,10,files.length);
+  putU32(eocd,12,central.length);putU32(eocd,16,locals.length);putU16(eocd,20,0);
+  return new Blob([concatBytes([locals,central,eocd])],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
+}
+
+/* ---------- UI ---------- */
+function setStatus(id,message,type="success"){
+  const el=$(id);if(!el)return;
+  el.textContent=message;el.className="status show "+type;
+}
+function setGlobal(message,type="success"){
+  const el=$("globalStatus");el.textContent=message;el.className="notice "+type;el.style.display="block";
+}
+function clearGlobal(){$("globalStatus").style.display="none"}
+
+function downloadBlob(blob,name){
+  const url=URL.createObjectURL(blob),a=document.createElement("a");
+  a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+function downloadText(text,name,type){
+  downloadBlob(new Blob([text],{type}),name);
+}
+function usersJson(){
+  return JSON.stringify(latestBulk.users,null,2);
+}
+function credentialsRows(){
+  const users=latestBulk.users,credentials=latestBulk.credentials;
+  const headers=["email","email_hash","password","password_hash"];
+  for(const u of users){
+    for(const k of Object.keys(u)){
+      if(!["email_hash","password_hash","email","password"].includes(k)&&!headers.includes(k))headers.push(k);
+    }
+  }
+  const rows=[headers];
+  users.forEach((u,i)=>{
+    rows.push(headers.map(key=>{
+      if(key==="email")return credentials[i]?.email??"";
+      if(key==="email_hash")return credentials[i]?.email_hash??"";
+      if(key==="password")return credentials[i]?.password??"";
+      if(key==="password_hash")return credentials[i]?.password_hash??"";
+      return u[key]??"";
+    }));
+  });
+  return rows;
+}
+function downloadUsersJson(){
+  if(!latestBulk)return;
+  downloadText(usersJson(),"users.json","application/json;charset=utf-8");
+}
+function downloadCredentialsCsv(){
+  if(!latestBulk)return;
+  const csv=credentialsRows().map(r=>r.map(csvEscape).join(",")).join("\r\n")+"\r\n";
+  downloadText(csv,"student_credentials.csv","text/csv;charset=utf-8");
+}
+async function downloadCredentialsXlsx(){
+  if(!latestBulk)return;
+  try{
+    const blob=await makeXlsx(credentialsRows());
+    downloadBlob(blob,"student_credentials.xlsx");
+  }catch(e){setGlobal("Could not create XLSX: "+e.message,"error")}
+}
+function openJsonModal(){
+  if(!latestBulk)return;
+  $("bulkJsonPreview").textContent=usersJson();
+  $("jsonModal").classList.add("open");document.body.style.overflow="hidden";
+}
+function closeJsonModal(){$("jsonModal").classList.remove("open");document.body.style.overflow=""}
+async function copyText(id){
+  const el=$(id),text=el?.textContent||"";
+  try{await navigator.clipboard.writeText(text);alert("Copied JSON entry.")}
+  catch{
+    const r=document.createRange();r.selectNode(el);const s=getSelection();s.removeAllRanges();s.addRange(r);
+    document.execCommand("copy");s.removeAllRanges();alert("Copied JSON entry.");
+  }
+}
+function copyBulkJson(){copyText("bulkJsonPreview")}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeJsonModal()});
+$("jsonModal").addEventListener("click",e=>{if(e.target===$("jsonModal"))closeJsonModal()});
+
+function renderCsvPreview(rows){
+  if(!rows.length)return "<div class='small'>No readable rows found.</div>";
+  const shown=rows.slice(0,6),cols=Math.max(...shown.map(r=>r.length));
+  let html="<table><thead><tr>";
+  for(let c=0;c<cols;c++)html+="<th>"+esc(shown[0]?.[c]??"")+"</th>";
+  html+="</tr></thead><tbody>";
+  for(const row of shown.slice(1)){
+    html+="<tr>";
+    for(let c=0;c<cols;c++)html+="<td>"+esc(row[c]??"")+"</td>";
+    html+="</tr>";
+  }
+  return html+"</tbody></table>";
+}
+function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+function formatBytes(n){if(n<1024)return n+" B";if(n<1048576)return (n/1024).toFixed(1)+" KB";return (n/1048576).toFixed(1)+" MB"}
+
+$("sheetInput").addEventListener("change",async()=>{
+  const file=$("sheetInput").files?.[0],preview=$("filePreview");
+  if(!file){preview.className="file-preview empty";preview.textContent="Select a CSV or XLSX file to preview it here.";return}
+  preview.className="file-preview";
+  preview.innerHTML="<div class='file-name'>"+esc(file.name)+"</div><div class='file-meta'>"+esc(file.type||"Spreadsheet")+" · "+formatBytes(file.size)+"</div><div class='small' style='margin-top:8px'>Reading first sheet…</div>";
+  try{
+    const rows=await readSpreadsheet(file);
+    preview.innerHTML="<div class='file-name'>"+esc(file.name)+"</div><div class='file-meta'>"+esc(file.type||"Spreadsheet")+" · "+formatBytes(file.size)+" · "+rows.length+" row(s)</div>"+renderCsvPreview(rows);
+  }catch(e){
+    preview.innerHTML="<div class='file-name'>"+esc(file.name)+"</div><div class='small' style='margin-top:8px;color:#a51d2d'>Preview error: "+esc(e.message)+"</div>";
+  }
+});
+
+$("bulkDate").value=todayISO();$("bulkYears").value=String(new Date().getFullYear());
+$("singleDate").value=todayISO();$("singleYears").value=String(new Date().getFullYear());
+
+$("bulkForm").addEventListener("submit",async e=>{
+  e.preventDefault();clearGlobal();
+  const btn=$("bulkGenerateBtn");btn.disabled=true;btn.textContent="Generating…";
+  try{
+    const file=$("sheetInput").files?.[0];if(!file)throw new Error("Please select a CSV or XLSX file.");
+    const rows=await readSpreadsheet(file),records=rowsToRecords(rows);
+    const passwordLength=clampPasswordLength($("bulkPasswordLength").value);
+    const program=$("bulkProgram").value.trim();
+    const batch=$("bulkBatch").value.trim();
+    const image=$("bulkImage").value.trim();
+    const date=$("bulkDate").value.trim()||todayISO();
+    const years=$("bulkYears").value.trim()||String(new Date().getFullYear());
+    const languages=$("bulkLanguages").value.trim()||"en";
+    const [users,credentials]=await buildUsers(records,passwordLength,program,batch,image,date,years,languages);
+    if(!users.length)throw new Error("No valid email rows were found. Make sure the first row contains column headers and each user has an email and Category is Junior or Senior.");
+    latestBulk={users,credentials,count:users.length,passwordLength,program,batch,image,date,years,languages:parseLanguages(languages)};
+    $("bulkResult").style.display="block";
+    $("bulkCount").textContent=users.length+" users ready.";
+    $("bulkMeta").innerHTML=[
+      ["Password",passwordLength+" chars"],["Program",program],["Batch",batch],["Date",date],["Year",years],["Languages",latestBulk.languages.join(", ")]
+    ].map(x=>"<span>"+esc(x[0]+": "+x[1])+"</span>").join("");
+    $("bulkJsonPreview").textContent=usersJson();
+    setStatus("bulkStatus","Generated "+users.length+" users. The public JSON contains only email_hash and password_hash; CSV/XLSX credential downloads contain real email, hashed email, real password, hashed password, and all generated/imported user fields.","success");
+  }catch(err){setStatus("bulkStatus",err.message||String(err),"error")}
+  finally{btn.disabled=false;btn.textContent="Generate users + credentials"}
+});
+
+$("singleForm").addEventListener("submit",async e=>{
+  e.preventDefault();clearGlobal();
+  const btn=$("singleGenerateBtn");btn.disabled=true;btn.textContent="Generating…";
+  try{
+    const email=$("singleEmail").value.trim().toLowerCase();
+    if(!validEmail(email))throw new Error("Enter a valid email address.");
+    const passwordLength=clampPasswordLength($("singlePasswordLength").value);
+    const category=["Junior","Senior"].includes($("singleCategory").value)?$("singleCategory").value:"Junior";
+    const plain=randomPassword(passwordLength);
+    const emailHash=await pbkdf2Hex(email),passwordHash=await pbkdf2Hex(plain);
+    const date=$("singleDate").value.trim()||todayISO(),years=$("singleYears").value.trim()||String(new Date().getFullYear());
+    const data={
+      email_hash:emailHash,
+      name:$("singleName").value.trim(),
+      institution:$("singleInstitution").value.trim(),
+      school:$("singleSchool").value.trim(),
+      country:$("singleCountry").value.trim(),
+      category,participant_id:yearFromDate(date)+"-"+(category==="Junior"?"J":"S")+"-01",
+      program:$("singleProgram").value.trim(),
+      batch:$("singleBatch").value.trim(),
+      image:$("singleImage").value.trim(),
+      role:category,date,years,
+      languages:parseLanguages($("singleLanguages").value||"en")
+    };
+    delete data.email;
+    data.password_hash=passwordHash;
+
+    const extra=$("extraJson").value.trim();
+    if(extra){
+      const x=JSON.parse(extra);
+      if(x && typeof x==="object" && !Array.isArray(x)){
+        for(const [k,v] of Object.entries(x)){
+          const nk=normKey(k);if(nk)data[nk]=v!==null&&typeof v!=="object"?String(v):v;
+        }
+      }else throw new Error("Additional fields must be a JSON object.");
+    }
+    data.languages=parseLanguages($("singleLanguages").value||"en",["en"]);
+
+    $("singlePassword").textContent=plain;
+    $("singleJson").textContent=JSON.stringify([data],null,2);
+    $("singleResult").style.display="block";
+    setStatus("singleStatus","Single user generated successfully. Save the displayed password or copy the JSON entry.","success");
+  }catch(err){setStatus("singleStatus",err.message||String(err),"error")}
+  finally{btn.disabled=false;btn.textContent="Generate single entry"}
+});
+</script>
+</body>
+</html>
