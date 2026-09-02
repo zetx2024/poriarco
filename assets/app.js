@@ -92,7 +92,7 @@ function sponsorHeaderHTML(){
     </div>
   </header>`;
 }
-function formatDeadline(v){const d=new Date(v);if(isNaN(d))return v;const ms=["January","February","March","April","May","June","July","August","September","October","November","December"];let h=d.getUTCHours(),ap=h>=12?"PM":"AM";h=h%12||12;return `${ms[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()} ${h}:${String(d.getUTCMinutes()).padStart(2,"0")} ${ap} (EST)`;}
+function formatDeadline(v){const d=new Date(v);if(isNaN(d))return v;const ms=["January","February","March","April","May","June","July","August","September","October","November","December"];let h=d.getUTCHours(),ap=h>=12?"PM":"AM";h=h%12||12;return `${ms[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()} ${h}:${String(d.getUTCMinutes()).padStart(2,"0")} ${ap} `;}
 function submissionModal(item){
   if(!item) return;
 
@@ -311,7 +311,7 @@ function updateCountdowns(){
 function timelineSidebarHTML(){return state.timeline.length?state.timeline.map((x,i)=>`<div class="timeline-item"><h4>${esc(x.title)}</h4><div class="deadline-label">Deadline: ${esc(formatDeadline(x.date))}</div><div class="countdown" data-deadline="${esc(x.date)}">${countdownText(x.date)}</div><div class="timeline-actions compact"><button class="side-action side-submit" type="button" data-timeline="${i}">${esc(x.submitLabel||"Submit")}</button><a class="side-action" target="_blank" rel="noopener noreferrer" href="${esc(x.rulesUrl||'#')}">${esc(x.rulesLabel||"Rules")}</a></div></div>`).join(''):'<div class="muted small">No timeline items.</div>';}
 function timelineMainHTML(){
   return state.timeline.length?`<section class="timeline-main"><h2>Competition Timeline</h2>
-    <p class="muted">Countdown uses fixed EST (UTC−05:00).</p>
+    <p class="muted">Countdown uses fixed Time.</p>
     <div class="deadline-grid">${state.timeline.map(x=>`<article class="deadline-row">
       <h3>${esc(x.title)}</h3>
       <div class="deadline-time" data-deadline="${esc(x.date)}">${countdownText(x.date)}</div>
