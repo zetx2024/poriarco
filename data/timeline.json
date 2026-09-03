@@ -32,21 +32,5 @@
       "Review all requirements before submission.",
       "Submit before the displayed deadline."
     ]
-  },
-  {
-    "id": "pitch",
-    "title": "Video Pitch Submission Deadline",
-    "date": "2026-10-05T23:59:00-05:00",
-    "description": "The top 50+50 Finalists must submit a 2.5-5 minute-long video submission. The Video Pitch should state the proposal's research question or objective and introduce the research process and potential future research avenues.",
-    "submitLabel": "Submit Video Pitch",
-    "submitUrl": "#",
-    "rulesLabel": "Rubric",
-    "rulesUrl": "#",
-    "rules": [
-      "Video duration must be 2.5\u20135 minutes.",
-      "Include your research question or objective.",
-      "Follow the official technical specifications.",
-      "Review the assessment guidelines before submission."
-    ]
   }
 ]
