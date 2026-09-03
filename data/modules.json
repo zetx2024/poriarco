@@ -324,6 +324,16 @@
         "title": "Practice Research Proposal",
         "videoId": "w538Eyo6Vgw",
         "resource": "https://iarco.org/assets/doc/proposal_template.docx"
+      },
+      {
+        "id": 4,
+        "title": "Research Proposal Example 01",
+        "resource": "https://iarco.org/assets/doc/rp1.pdf"
+      },
+      {
+        "id": 4,
+        "title": "Research Proposal Example 02",
+        "resource": "https://iarco.org/assets/doc/rp2.pdf"
       }
     ]
   }
