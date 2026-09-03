@@ -19,16 +19,6 @@
         "title": "IARCO 2026",
         "videoId": "fCdMSxetk4w",
         "resource": ""
-      },
-      {
-        "id": 2,
-        "title": "Research Proposal Example 01",
-        "resource": "https://iarco.org/assets/doc/rp1.pdf"
-      },
-      {
-        "id": 3,
-        "title": "Research Proposal Example 02",
-        "resource": "https://iarco.org/assets/doc/rp2.pdf"
       }
     ]
   },
@@ -121,6 +111,17 @@
         "title": "Practice Research Proposal",
         "videoId": "tyY5u9AzQBE",
         "resource": "https://iarco.org/assets/doc/proposal_template.docx"
+      },
+      ,
+      {
+        "id": 4,
+        "title": "Research Proposal Example 01",
+        "resource": "https://iarco.org/assets/doc/rp1.pdf"
+      },
+      {
+        "id": 4,
+        "title": "Research Proposal Example 02",
+        "resource": "https://iarco.org/assets/doc/rp2.pdf"
       }
     ]
   },
