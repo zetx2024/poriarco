@@ -10353,5 +10353,26 @@
     ],
     "email_hash": "25cb941fee3f72c8ff12b9e424127484a9c295919d0db2acde753c92ede79d0258ed000fb30d883c7c893e0dd233ebdf99b5cbd9aa541135f1083bd9508bba46",
     "password_hash": "c430a443e3f4feb0e45f2ab8520e48a043db249a5807f49d778cc7e63f74adf0764c58f93039d3ff070ef4b1dc01fa52df519fd8ea239167d6bf3126e0b06360"
+  },
+  {
+    "name": "Rajveer Sanghavi",
+    "institution": "Delhi Public School",
+    "school": "Delhi Public School",
+    "country": "India",
+    "category": "Junior",
+    "participant_id": "2026-J-491",
+    "program": "IARCO",
+    "batch": "3rd",
+    "image": "https://iarco.org/fevicon/android-chrome-192x192.png",
+    "role": "Junior",
+    "date": "2026-09-01",
+    "years": "2026",
+    "languages": [
+      "intro",
+      "en",
+      "eng"
+    ],
+    "email_hash": "b4b1763daabb124dfa7eb60ce9335a84c5303b8dc3232e662ad6b0d6b351f6d6d543a9e0d520c22638cecb24193906fa02eb55c1bf936678f98c8087bcbe527c",
+    "password_hash": "f8b90f831022637479c5ba638c52dfaea4f71d3ecc0f54adc04f6a29c6682e0453f5bb54acabcbd56f89eef11d2cd7a3bae459f65958034749bd51b0b9632e1d"
   }
 ]
